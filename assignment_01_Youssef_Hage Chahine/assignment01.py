@@ -60,4 +60,23 @@ print('new list: ', result)
 
 # ex-5:
 
+import string
+
+def strong_password():
+    letter_lower = string.ascii_lowercase
+    letter_upper = string.ascii_uppercase
+    special_char = ['#', '?', '!', '$']
+
+    password = input('enter password: ')
+
+    if len(password) < 8:
+        print("password short should be 8 or more")
+        return
+    elif len(password) > 8 and any(char in password for char in letter_lower) and any(char in password for char in letter_upper) and any(char in password for char in special_char):
+        print("Strong password")
+    else:
+        print("Weak password")
+    
+    return password
+strong_password()
 
