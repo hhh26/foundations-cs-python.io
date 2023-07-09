@@ -12,8 +12,9 @@ def count_digits(n):
         result  = 1 + count_digits(n // 10)
     return result
 
-num = int(input('enter a number: '))
-print(count_digits(num))
+#num = int(input('enter a number: '))
+#print(count_digits(num))
+
 
 # ex 2:
 
@@ -33,15 +34,17 @@ def findMax(nums):
     else:
         return max_rest
 
-list1 = []
-value = int(input('enter how many numbers: '))
-for i in range(value):
-    i = int(input('enter a number: '))
-    list1.append(i)
+#list1 = []
+#value = int(input('enter how many numbers: '))
+#for i in range(value):
+#    i = int(input('enter a number: '))
+#    list1.append(i)
+#
+#result = findMax(list1)
+#
+#print('Max value: ', result)
 
-result = findMax(list1)
 
-print('Max value: ', result)
 
 # ex 3
 
@@ -77,7 +80,79 @@ html = '''
 </body>
 </html>
 '''
-tag_to_count = input('enter the tag: ')
-tag_count = count_tags(html, tag_to_count)
-print(tag_to_count, tag_count)
+#tag_to_count = input('enter the tag: ')
+#tag_count = count_tags(html, tag_to_count)
+#print(tag_to_count, tag_count)
+
+
+def count_digits_menu():
+    num = int(input("Enter a number: "))
+    print("Number of digits:", count_digits(num))
+
+def find_max_menu():
+    list1 = []
+    value = int(input("Enter how many numbers: "))
+    for i in range(value):
+        i = int(input("Enter a number: "))
+        list1.append(i)
+    result = findMax(list1)
+    print("Max value:", result)
+
+def count_tags_menu():
+    html = ''' 
+    <html>
+    <head>
+    <title>My Website</title>
+    </head>
+    <body>
+    <h1>Welcome to my website!</h1>
+    <p>Here you'll find information about me and my hobbies.</p>
+    <h2>Hobbies</h2>
+    <ul>
+    <li>Playing guitar</li>
+    <li>Reading books</li>
+    <li>Traveling</li>
+    <li>Writing cool h1 tags</li>
+    </ul>
+    </body>
+    </html>
+    '''
+    tag_to_count = input("Enter the tag: ")
+    tag_count = count_tags(html, tag_to_count)
+    print(tag_to_count, "count:", tag_count)
+
+
+
+def displayMenu():
+    print("Menu:")
+    print("1. Count Digits")
+    print("2. Find Max")
+    print("3. Count Tags")
+    print("4. Exit")
+
+def main():
+    displayMenu()
+    choice = int(input("please enter your choice here: "))
+
+    while choice != 4:
+        if choice == 1:
+            count_digits_menu()
+        elif choice == 2:
+            find_max_menu()
+        elif choice == 3:
+            count_tags_menu()
+        else:
+            print("this is an invalid choice ")
+        
+        print('\n')
+        print(' - - - - - - - - ')
+        print('\n')
+        
+        displayMenu()
+        choice = int(input("please enter your choice here: "))
+    
+    print("Thank you for using my program!, you exited")
+    
+    
+main()
 
