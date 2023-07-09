@@ -14,3 +14,32 @@ def count_digits(n):
 
 num = int(input('enter a number: '))
 print(count_digits(num))
+
+# ex 2:
+
+def findMax(nums):
+    
+    if len(nums) == 0:
+        return []
+    elif len(nums) == 1:
+        return nums[0]
+    
+    first = nums[0]
+    rest = nums[1:]   
+    max_rest = findMax(rest)
+
+    if first > max_rest:
+        return first
+    else:
+        return max_rest
+
+list1 = []
+value = int(input('enter how many numbers: '))
+for i in range(value):
+    i = int(input('enter a number: '))
+    list1.append(i)
+
+result = findMax(list1)
+
+print('Max value: ', result)
+
