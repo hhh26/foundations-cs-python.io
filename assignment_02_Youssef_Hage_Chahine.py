@@ -45,3 +45,39 @@ print('Max value: ', result)
 
 # ex 3
 
+def count_tags(contents, tags):
+    
+    if not contents: # in case there is not a html content
+        return 0
+    
+    start_tag = contents.find("<" + tags) # to find the starting tag
+    if start_tag == -1: # when using the .find() method, if the character is not fing it reterns -1
+        return 0
+    
+    end_tag = contents.find(">", start_tag) # to find the ending tag
+    if end_tag == -1:
+        return 0
+    return 1 + count_tags(contents[end_tag + 1:], tags) # to count the occurences html tag in the remaing html content 
+
+html = ''' 
+<html>
+<head>
+<title>My Website</title>
+</head>
+<body>
+<h1>Welcome to my website!</h1>
+<p>Here you'll find information about me and my hobbies.</p>
+<h2>Hobbies</h2>
+<ul>
+<li>Playing guitar</li>
+<li>Reading books</li>
+<li>Traveling</li>
+<li>Writing cool h1 tags</li>
+</ul>
+</body>
+</html>
+'''
+tag_to_count = input('enter the tag: ')
+tag_count = count_tags(html, tag_to_count)
+print(tag_to_count, tag_count)
+
