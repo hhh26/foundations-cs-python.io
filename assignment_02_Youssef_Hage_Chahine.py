@@ -19,16 +19,16 @@ print(count_digits(num))
 
 def findMax(nums):
     
-    if len(nums) == 0:
+    if len(nums) == 0: # if there is not a list 
         return []
-    elif len(nums) == 1:
+    elif len(nums) == 1: # if there is only one number in the list
         return nums[0]
-    
-    first = nums[0]
-    rest = nums[1:]   
-    max_rest = findMax(rest)
+    # for more than 1 number in the list
+    first = nums[0] # the 1st num in the list
+    rest = nums[1:] # the other num in the list
+    max_rest = findMax(rest) # to find the max value 
 
-    if first > max_rest:
+    if first > max_rest: 
         return first
     else:
         return max_rest
@@ -42,4 +42,6 @@ for i in range(value):
 result = findMax(list1)
 
 print('Max value: ', result)
+
+# ex 3
 
