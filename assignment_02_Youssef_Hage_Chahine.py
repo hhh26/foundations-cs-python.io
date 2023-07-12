@@ -62,24 +62,24 @@ def count_tags(contents, tags):
         return 0
     return 1 + count_tags(contents[end_tag + 1:], tags) # to count the occurences html tag in the remaing html content 
 
-html = ''' 
-<html>
-<head>
-<title>My Website</title>
-</head>
-<body>
-<h1>Welcome to my website!</h1>
-<p>Here you'll find information about me and my hobbies.</p>
-<h2>Hobbies</h2>
-<ul>
-<li>Playing guitar</li>
-<li>Reading books</li>
-<li>Traveling</li>
-<li>Writing cool h1 tags</li>
-</ul>
-</body>
-</html>
-'''
+#html = ''' 
+#<html>
+#<head>
+#<title>My Website</title>
+#</head>
+#<body>
+#<h1>Welcome to my website!</h1>
+#<p>Here you'll find information about me and my hobbies.</p>
+#<h2>Hobbies</h2>
+#<ul>
+#<li>Playing guitar</li>
+#<li>Reading books</li>
+#<li>Traveling</li>
+#<li>Writing cool h1 tags</li>
+#</ul>
+#</body>
+#</html>
+#'''
 #tag_to_count = input('enter the tag: ')
 #tag_count = count_tags(html, tag_to_count)
 #print(tag_to_count, tag_count)
