@@ -54,7 +54,7 @@ def count_tags(contents, tags):
         return 0
     
     start_tag = contents.find("<" + tags) # to find the starting tag
-    if start_tag == -1: # when using the .find() method, if the character is not fing it reterns -1
+    if start_tag == -1: # when using the .find() method, if the character is not found it reterns -1
         return 0
     
     end_tag = contents.find(">", start_tag) # to find the ending tag
