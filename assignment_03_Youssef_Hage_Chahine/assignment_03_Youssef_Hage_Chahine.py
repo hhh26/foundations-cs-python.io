@@ -68,3 +68,29 @@ data = {
       }
 
 write_dic_to_json(data, 'ex2.json')
+
+# ex 3:
+
+def convert_json_to_dict(filename):
+  with open(filename, 'r') as file:
+    json_data2 = file.read()
+  
+  lst2 = []
+  while json_data2:
+    end_index = json_data2.find('}')
+    
+    if end_index == -1:
+      break
+    
+    data_dic = json_data2[:end_index + 1]
+    convert_to_dic = eval(json_data2, {'true': True, 'false': False, 'null': None})
+
+    lst2.append(convert_to_dic)
+
+    json_data2 = json_data2[end_index + 1:]
+  
+  return lst2
+
+filename = 'assignment_03_Youssef_Hage_Chahine\ex3.json'
+json_to_dict = convert_json_to_dict(filename)
+print(json_to_dict)
