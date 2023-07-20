@@ -36,38 +36,30 @@ print(sumTuples(tup1, tup2))
 
 # ex 2:
 
-def convert_dic_to_json(dictionary):
-  json_data = "{"
-  for key, value in dictionary.items():
-      json_data += f'"{key}": '
-      if isinstance(value, dict):
-        json_data = convert_dic_to_json(value) + ","
-      else:
-        json_data += f'"{value}"'
-  
-  json_data = json_data.rstrip(",") + '}'
-  return json_data
-
 def write_dic_to_json(dictionary, filename):
   with open(filename, 'w') as file:
     json_data = convert_dic_to_json(dictionary)
     file.write(json_data)
 
-data = {
-    "students": 
-    [
-      {
-      'name': 'Youssef', 
-      'age': 31
-      },
-      {
-      'name': 'Antoine',
-      'age': 26
-      }
-    ]
-      }
+def convert_dic_to_json(dictionary):
+  json_data = "{"
+  for key, value in dictionary.items():
+      json_data += f'"{key}": '
+      
+      if isinstance(value, dict):
+        json_data = convert_dic_to_json(value) + ","
+      else:
+        json_data += f'"{value}",'
+  
+  json_data = json_data.rstrip(",") + '}'
+  return json_data
 
-write_dic_to_json(data, 'ex2.json')
+data = {
+  "name": "Youssef", 
+  "age": 31
+  }
+write_dic_to_json(data, 'assignment_03_Youssef_Hage_Chahine\ex2.json')
+
 
 # ex 3:
 
