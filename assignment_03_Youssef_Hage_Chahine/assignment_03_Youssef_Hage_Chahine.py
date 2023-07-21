@@ -157,3 +157,18 @@ def main():
     
     
 main()
+
+
+# exercise:
+
+# Use the big-O notation to indicate the order of growth of each of the following functions where
+#N is the size of the input:
+
+# a. O(N^3)
+# b. O(N^3)
+# c. O(N!)
+# d. O(NlogN)
+# e. O(N)
+# f. O(N^2)
+# g. O(N^2)
+# h. O(N!)
