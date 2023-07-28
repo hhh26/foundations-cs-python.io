@@ -66,6 +66,24 @@ new_ticket_list = f"{new_ticket_id}, {event_id}, {username}, {current_date}, {pr
 
 with open('ticket_list.txt', 'a') as file:
     file.write(new_ticket_list)
+
+tickets_list.append(new_ticket_list.strip().split(", "))
 print('ticket list updated')
 
+
+### Display all tickets: (sorting by date and event id)
+
+def sort_tickets(ticket_list):
+    for i in range(len(tickets_list)):
+        for j in range(i + 1, len(tickets_list)):
+            if ticket_list[i][3] > ticket_list[j][3] or (ticket_list[i][3] == ticket_list[j][3] and ticket_list[i][1] > ticket_list[j][1]):
+                ticket_list[i], ticket_list[j] = ticket_list[j], ticket_list[i]
+    return ticket_list
+
+sorted_tickets = sort_tickets(ticket_list)
+
+print("today s tickets:")
+for ticket in sorted_tickets:
+    if ticket[3] == current_date:
+        print(", ".join(ticket))
 
