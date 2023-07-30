@@ -28,5 +28,4 @@ tick027, ev002, bob, 20230622, 1
 tick028, ev003, alice, 20230701, 3
 tick029, ev001, alice, 20230624, 0
 tick030, ev003, alice, 20230708, 2
-tick31, ev003, youssef, 20230728, 3
-tick32, ev003, gio, 20230728, 2
+tick31,ev002, youssef, 20230730, 0

@@ -1,5 +1,10 @@
 import datetime
 
+#----------#
+####Admin###
+#----------#
+
+
 # create the special queue sorted by event id and theire event dates:
 def specialQueue():
     event_dates = {
@@ -9,8 +14,8 @@ def specialQueue():
     }
     special_queue = []
 
-    for event_id in sorted(event_dates.key()): # https://www.geeksforgeeks.org/python-sorted-function/
-        special_queue.append(event_id, event_dates[event_id])
+    for event_id in sorted(event_dates.keys()): # https://www.geeksforgeeks.org/python-sorted-function/
+        special_queue.append((event_id, event_dates[event_id]))
     
     return special_queue
 special_queue = specialQueue()
@@ -31,7 +36,7 @@ for tik_data in ticket_data:
     if len(ticket_list) == 5:
         tickets_list.append(ticket_list)
 
- 
+
 #print(tickets_list)
 
 # Admin users
@@ -53,16 +58,16 @@ def displayStatistics(tickets_list):
     
     return max_event_id, max_event_count
 
-max_event_id, max_event_count = displayStatistics(tickets_list)
-
-print(f'Max event id: {max_event_id}, {max_event_count}')
+#max_event_id, max_event_count = displayStatistics(tickets_list)
+#print(f'Max event id: {max_event_id}, {max_event_count}')
 
 
 ## Book a ticket:
 ## 1st step admin input:
-username = input('enter a name: ')
-event_id = input('enetr the event id: ')
-priority = input('enter priority lvl from 0 to 3: ')
+
+#username = input('enter a name: ')
+#event_id = input('enetr the event id: ')
+#priority = input('enter priority lvl from 0 to 3: ')
 
 
 ### 2nd step get the curret date  
@@ -77,16 +82,16 @@ def new_ticket():
         last_ticket_id = int(last_ticket.split(', ')[0].lstrip('tick'))
         return f"tick{last_ticket_id + 1:02}"
 
-current_date = get_date()
-new_ticket_id = new_ticket()
+#current_date = get_date()
+#new_ticket_id = new_ticket()
 
-new_ticket_list = f"{new_ticket_id}, {event_id}, {username}, {current_date}, {priority}\n"
+#new_ticket_list = f"{new_ticket_id}, {event_id}, {username}, {current_date}, {priority}\n"#
 
-with open('ticket_list.txt', 'a') as file:
-    file.write(new_ticket_list)
+#with open('ticket_list.txt', 'a') as file:
+#    file.write(new_ticket_list)
 
-tickets_list.append(new_ticket_list.strip().split(", "))
-print('ticket list updated')
+#tickets_list.append(new_ticket_list.strip().split(", "))
+#print('ticket list updated')
 
 
 ### Display all tickets: (sorting by date and event id)
@@ -98,12 +103,12 @@ def sort_tickets(ticket_list):
                 ticket_list[i], ticket_list[j] = ticket_list[j], ticket_list[i]
     return ticket_list
 
-sorted_tickets = sort_tickets(ticket_list)
+#sorted_tickets = sort_tickets(ticket_list)
 
-print("today s tickets:")
-for ticket in sorted_tickets:
-    if ticket[3] == current_date:
-        print(", ".join(ticket))
+#print("today s tickets:")
+#for ticket in sorted_tickets:
+#    if ticket[3] == current_date:
+#        print(", ".join(ticket))
 
 
 
@@ -115,12 +120,12 @@ def change_priority(tickets_list, ticket_to_change, new_priority):
             ticket[4] = new_priority
             break
 
-ticket_to_change = input("enter the ticket id: ")
-new_priority = input("enter priority lvl from 0 to 3: ")
-change_priority(tickets_list, ticket_to_change, new_priority)
+#ticket_to_change = input("enter the ticket id: ")
+#new_priority = input("enter priority lvl from 0 to 3: ")
+#change_priority(tickets_list, ticket_to_change, new_priority)
 
-for ticket in tickets_list:
-    print(", ".join(ticket))
+#for ticket in tickets_list:
+#    print(", ".join(ticket))
 
 
 
@@ -135,9 +140,8 @@ def remove_tickets(tickets_list, tick_to_remove):
         else:
             print("wrong ticket ID")
 
-tick_to_remove = input('enter the ticket id to remove: ')
-for ticket in tickets_list:
-    print(", ".join(ticket))
+#tick_to_remove = input('enter the ticket id to remove: ')
+#remove_tickets(tickets_list, tick_to_remove)
 
 
 def todayEvents(tickets_list):
@@ -203,4 +207,157 @@ def todayEvents(tickets_list):
                 print("no tickets are found for today s event")
         
     return special_queue
-special_queue = todayEvents(tickets_list, special_queue)  
+#special_queue = todayEvents(tickets_list, special_queue)  
+
+
+# Admin Menu #
+#------------#
+
+def display_admin_menu():
+    print("Admin Menu:")
+    print("1. Display Statistics")
+    print("2. Book a Ticket")
+    print("3. Display all Ticket")
+    print("4. Change Ticket's Priority")
+    print("5. Disable Ticket")
+    print("6. Run Events")
+    print("7. Exist")
+
+def adminMenu():
+    display_admin_menu()
+    choice = int(input('please enter your choice here: '))
+
+    while True:
+        
+        if choice == 1:
+            max_event_id, max_event_count = displayStatistics(tickets_list)
+            print(f'Max event id: {max_event_id}, {max_event_count}')
+        
+        elif choice == 2:
+            username = input('enter a name: ')
+            event_id = input('enetr the event id: ')
+            priority = input('enter priority lvl from 0 to 3: ')
+
+            current_date = get_date()
+            new_ticket_id = new_ticket()
+
+            new_ticket_list = f"{new_ticket_id}, {event_id}, {username}, {current_date}, {priority}\n"
+
+            with open('ticket_list.txt', 'a') as file:
+                file.write(new_ticket_list)
+
+            tickets_list.append(new_ticket_list.strip().split(", "))
+            print('ticket list updated')
+        
+        elif choice == 3:
+            sorted_tickets = sort_tickets(ticket_list)
+            print("today s tickets:")
+            for ticket in sorted_tickets:
+                if ticket[3] == current_date:
+                    print(", ".join(ticket))
+
+        elif choice == 4:
+            ticket_to_change = input("enter the ticket id: ")
+            new_priority = input("enter priority lvl from 0 to 3: ")
+            change_priority(tickets_list, ticket_to_change, new_priority)
+
+            for ticket in tickets_list:
+                print(", ".join(ticket))
+
+        elif choice == 5:
+            tick_to_remove = input('enter the ticket id to remove: ')
+            remove_tickets(tickets_list, tick_to_remove)
+        
+        elif choice == 6:
+            special_queue = todayEvents(tickets_list, special_queue)  
+        
+        elif choice == 7: # ask the admin if he wants to save the changes 
+            save_changes = input('save changes? (y/n): ')
+            if save_changes == 'y':
+                # saving the ticket list 
+                with open('ticket_list.txt', 'w') as file:
+                    for ticket in tickets_list:
+                        file.write(", ".join(ticket) + '\n')
+                
+                # saving the special queue:
+                with open('specia_queue.txt', 'w') as file:
+                    for event_id, event_date, in special_queue:
+                        file.write(f"{event_id}, {event_date}\n")
+                print("changes saved!")
+            break
+        else:
+            print('invlid key, try again')
+
+        display_admin_menu()
+        choice = int(input('please enter your choice here: '))
+
+
+
+
+
+##########
+###user###
+##########
+
+
+def normal_user_name():
+    normal_name = input("enter your name: ")
+    return normal_name
+
+
+def user_add_ticket():
+    event_id = input('enter the event id: ')
+    username2 = normal_user_name()
+    current_date = get_date()
+    priority = '0'
+
+    new_tickets_id = new_ticket()
+    new_ticket_list = f"{new_tickets_id},{event_id}, {username2}, {current_date}, {priority}"
+
+    with open('ticket_list.txt', 'a') as file:
+        file.write(new_ticket_list)
+    tickets_list.append(new_ticket_list.strip().split(", "))
+    print("ticket added")
+
+
+#-----------#
+##user menu##
+#-----------#
+
+def display_user_menu():
+    print("user menu:")
+    print("1. add ticket")
+    print("2. Save and Exit")
+
+def userMenu():    
+
+    while True:
+
+        display_user_menu()
+        choice = int(input('please enter your choice here: '))
+        if choice == 1:
+            user_add_ticket()
+        elif choice == 2:
+            with open('ticket_list.txt', 'w') as file:
+                for ticket in tickets_list:
+                    file.write(", ".join(ticket) + '\n')
+            print('changes saved')
+        break
+        
+    else:
+        print('wrong choise, plz repeat')
+
+#############
+#log-in menu#
+#############
+
+def display_login_menu():
+    username = input('enter the username: ')
+    password = input('enter the password: ')
+
+    if username == 'admin' and password == 'admin123123':
+        adminMenu()
+    else:
+        userMenu()
+
+display_login_menu()
