@@ -1,5 +1,23 @@
 import datetime
 
+# create the special queue sorted by event id and theire event dates:
+def specialQueue():
+    event_dates = {
+        'ev001': '20230802',
+        'ev002': '20230803',
+        'ev003': '20230804'
+    }
+    special_queue = []
+
+    for event_id in sorted(event_dates.key()): # https://www.geeksforgeeks.org/python-sorted-function/
+        special_queue.append(event_id, event_dates[event_id])
+    
+    return special_queue
+special_queue = specialQueue()
+
+
+# display evnets dates in the queue sorted by priority
+
 
 
 # import the txt file :
@@ -13,7 +31,7 @@ for tik_data in ticket_data:
     if len(ticket_list) == 5:
         tickets_list.append(ticket_list)
 
-
+ 
 #print(tickets_list)
 
 # Admin users
@@ -99,6 +117,7 @@ def change_priority(tickets_list, ticket_to_change, new_priority):
 
 ticket_to_change = input("enter the ticket id: ")
 new_priority = input("enter priority lvl from 0 to 3: ")
+change_priority(tickets_list, ticket_to_change, new_priority)
 
 for ticket in tickets_list:
     print(", ".join(ticket))
@@ -111,6 +130,8 @@ def remove_tickets(tickets_list, tick_to_remove):
     for ticket in tickets_list:
         if ticket[0] == tick_to_remove:
             tickets_list.remove(ticket)
+            print("ticket removed")
+            break
         else:
             print("wrong ticket ID")
 
@@ -119,3 +140,67 @@ for ticket in tickets_list:
     print(", ".join(ticket))
 
 
+def todayEvents(tickets_list):
+    global special_queue
+    current_date = datetime.datetime.now().strftime('%Y%m%d')
+    
+    # checking if the current date with any dates in the special queue:
+    matching_dates = []
+    for event_id, event_date in special_queue:
+        if event_date == current_date:
+            matching_dates.append(event_date)
+    
+    if matching_dates:
+        # case 1 if the current date == the date in the special queue, we dispalay the tickets and remove them from the queue
+        for event_id, event_date in special_queue:
+            if event_date == current_date:
+                today_events = [ticket for ticket in tickets_list if ticket[1] == event_id]
+                sorted_today_events = sorted(today_events, key=lambda ticket : (int(ticket[4]), ticket[1]))
+
+                if sorted_today_events:
+                    print('today s ticket:')
+                    for ticket in sorted_today_events:
+                        print(", ".join(ticket))
+
+                    # removing the ticets from the queue:
+                    special_queue = [(ev_id, ev_date) for ev_id, ev_date in special_queue if ev_date != current_date]
+                    print('tickets are removed from the queue')
+                else:
+                    print("no tickets are found for today s event")
+                break
+            
+    # case 2 : if the cuurent date != from the date in the speial queue, ask the admin to input a date and check if
+    # there are the same. 
+
+    else:
+        input_date = input("enter a date (yyyymmdd): ")
+        
+        matching_dates = []
+        for event_id, event_date in special_queue:
+            if event_date == input_date:
+                matching_dates.append(event_date)
+        
+        if matching_dates:
+            for event_id, event_date in special_queue:
+                if event_date == input_date:
+                    today_events = [ticket for ticket in tickets_list if ticket[1] == event_id]
+                    sorted_today_events = sorted(today_events, key=lambda ticket: (int(ticket[4]), ticket[1]))
+
+                    if sorted_today_events:
+                        print('today s ticket:')
+                        for ticket in sorted_today_events:
+                            print(", ".join(ticket))
+
+                    remove_today_events = input("remove today's events from the queue? (y/n): ")
+                    if remove_today_events.lower() == 'y':
+                        special_queue = [(ev_id, ev_date) for ev_id, ev_date in special_queue if ev_date != input_date]
+                        print('tickets are removed from the queue')
+                    else:
+                        print("no tickets are found for today s event")
+                    break
+    
+            else: # case 3 if the input date doesnt correspond to the special date:
+                print("no tickets are found for today s event")
+        
+    return special_queue
+special_queue = todayEvents(tickets_list, special_queue)  
