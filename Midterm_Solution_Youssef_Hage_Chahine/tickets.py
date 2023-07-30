@@ -87,3 +87,35 @@ for ticket in sorted_tickets:
     if ticket[3] == current_date:
         print(", ".join(ticket))
 
+
+
+### Change Ticket’s Priority:
+
+def change_priority(tickets_list, ticket_to_change, new_priority):
+    for ticket in tickets_list:
+        if ticket[0] == ticket_to_change:
+            ticket[4] = new_priority
+            break
+
+ticket_to_change = input("enter the ticket id: ")
+new_priority = input("enter priority lvl from 0 to 3: ")
+
+for ticket in tickets_list:
+    print(", ".join(ticket))
+
+
+
+### Remove tickets:
+
+def remove_tickets(tickets_list, tick_to_remove):
+    for ticket in tickets_list:
+        if ticket[0] == tick_to_remove:
+            tickets_list.remove(ticket)
+        else:
+            print("wrong ticket ID")
+
+tick_to_remove = input('enter the ticket id to remove: ')
+for ticket in tickets_list:
+    print(", ".join(ticket))
+
+
