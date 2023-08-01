@@ -51,10 +51,11 @@ def displayStatistics(tickets_list):
     max_event_count = 1
     event_count = {}
 
-    for tikts in tickets_list:
-        event_id = tikts[1]
-        event_count[event_id] = event_count.get(event_id, 0) + 1
-        if event_count[event_id] > max_event_count:
+    for tikts in tickets_list: # iterate through each ticket in the ticket list
+        event_id = tikts[1] # extract the event id
+        event_count[event_id] = event_count.get(event_id, 0) + 1 # update the count of the event id
+        
+        if event_count[event_id] > max_event_count: # to see wich event id has more tickets
             max_event_id = event_id
             max_event_count = event_count[event_id]
     
@@ -73,15 +74,15 @@ def displayStatistics(tickets_list):
 
 
 ### 2nd step get the curret date  
-def get_date():
+def get_date(): # to get today s date
     return datetime.datetime.now().strftime('%Y%m%d') #https://www.programiz.com/python-programming/datetime/strftime# 
 # return the current time in this format yyyymmdd
 
 ### 3rd step create next ticket id:
-def new_ticket():
-    with open('ticket_list.txt', 'r') as file:
+def new_ticket(): # crate a new ticket
+    with open('ticket_list.txt', 'r') as file: 
         last_ticket = file.readlines()[-1] # the last tikcket in the list 
-        last_ticket_id = int(last_ticket.split(', ')[0].lstrip('tick'))
+        last_ticket_id = int(last_ticket.split(', ')[0].lstrip('tick')) 
         current_date = get_date()
         return f"tick{last_ticket_id + 1:03}"
 
@@ -100,11 +101,12 @@ def new_ticket():
 ### Display all tickets: (sorting by date and event id)
 
 def sort_tickets(tickets_list):
-    for i in range(len(tickets_list)):
-        for j in range(i + 1, len(tickets_list)):
-            if len(tickets_list[i]) >= 4 and len(tickets_list[j]) >=4:
+    for i in range(len(tickets_list)): # iterate through each ticket in the ticket list
+        for j in range(i + 1, len(tickets_list)): # compare the current ticket i to other j ticket
+            if len(tickets_list[i]) >= 4 and len(tickets_list[j]) >=4: # we check if they are similar
+                # convert the 4th element to int 
                 if int(tickets_list[i][3]) > int(tickets_list[j][3]) or (int(tickets_list[i][3]) == int(tickets_list[j][3]) and tickets_list[i][1] > tickets_list[j][1]):
-                    tickets_list[i], tickets_list[j] = tickets_list[j], tickets_list[i]
+                    tickets_list[i], tickets_list[j] = tickets_list[j], tickets_list[i] # if condition is met we swap the tickets
             else:
                 print('error')
     return tickets_list
@@ -121,9 +123,9 @@ def sort_tickets(tickets_list):
 ### Change Ticket’s Priority:
 
 def change_priority(tickets_list, ticket_to_change, new_priority):
-    for ticket in tickets_list:
-        if ticket[0] == ticket_to_change:
-            ticket[4] = new_priority
+    for ticket in tickets_list: # iterate through each ticket in the ticket list
+        if ticket[0] == ticket_to_change: # comparing the ticket id in the list and the one inputed
+            ticket[4] = new_priority # if condition is met we change the priority
             break
 
 #ticket_to_change = input("enter the ticket id: ")
@@ -135,9 +137,8 @@ def change_priority(tickets_list, ticket_to_change, new_priority):
 
 
 
-### Remove tickets: once a ticket is removed, from anywhere in the list but not from the end, i dindt auto-decreced the ticket ID because each ticket ID is UNIQUE 
 
-def remove_tickets(tickets_list, tick_to_remove):
+def remove_tickets(tickets_list, tick_to_remove): # same logic as the one above
     for ticket in tickets_list:
         if ticket[0] == tick_to_remove:
             tickets_list.remove(ticket)
@@ -153,7 +154,7 @@ def remove_tickets(tickets_list, tick_to_remove):
 def todayEvents(tickets_list):
     # https://www.simplilearn.com/tutorials/python-tutorial/global-variable-in-python
     global special_queue, current_date
-    #current_date = datetime.datetime.now().strftime('%Y%m%d')
+    current_date = datetime.datetime.now().strftime('%Y%m%d')
     
     # checking if the current date with any dates in the special queue:
     matching_dates = []
@@ -358,10 +359,18 @@ def userMenu():
 
 def display_login_menu():
     username = input('enter the username: ')
-    password = input('enter the password: ')
-
-    if username == 'admin' and password == 'admin123123':
-        adminMenu()
+    
+    if username == 'admin':
+        chances = 5
+        for chance in range(chances):
+            password = input('enter the password: ')
+            if password == 'admin123123':
+                adminMenu()
+                break
+            elif chance < chances:
+                print(f"wrong password, you have {chances - chance} chances left")
+            else:
+                print("you exeed your chances, access denied")
     else:
         userMenu()
 
