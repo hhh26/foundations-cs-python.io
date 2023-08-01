@@ -293,7 +293,7 @@ def adminMenu():
                     for event_id, event_date, in special_queue:
                         file.write(f"{event_id}, {event_date}\n")
                 print("changes saved!")
-            break
+                break
         else:
             print('invlid key, try again')
 
