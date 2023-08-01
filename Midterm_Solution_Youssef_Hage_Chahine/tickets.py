@@ -295,6 +295,8 @@ def adminMenu():
                         file.write(f"{event_id}, {event_date}\n")
                 print("changes saved!")
                 break
+            elif save_changes == 'n':
+                break
         else:
             print('invlid key, try again')
 
