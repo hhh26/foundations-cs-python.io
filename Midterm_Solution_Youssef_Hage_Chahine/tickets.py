@@ -12,9 +12,11 @@ def specialQueue():
         'ev002': '20230803',
         'ev003': '20230804'
     }
+    
     special_queue = []
 
-    for event_id in sorted(event_dates.keys()): # https://www.geeksforgeeks.org/python-sorted-function/
+
+    for event_id in event_dates: 
         special_queue.append((event_id, event_dates[event_id]))
     
     return special_queue
@@ -80,7 +82,8 @@ def new_ticket():
     with open('ticket_list.txt', 'r') as file:
         last_ticket = file.readlines()[-1] # the last tikcket in the list 
         last_ticket_id = int(last_ticket.split(', ')[0].lstrip('tick'))
-        return f"tick{last_ticket_id + 1:02}"
+        current_date = get_date()
+        return f"tick{last_ticket_id + 1:03}"
 
 #current_date = get_date()
 #new_ticket_id = new_ticket()
@@ -96,12 +99,15 @@ def new_ticket():
 
 ### Display all tickets: (sorting by date and event id)
 
-def sort_tickets(ticket_list):
+def sort_tickets(tickets_list):
     for i in range(len(tickets_list)):
         for j in range(i + 1, len(tickets_list)):
-            if ticket_list[i][3] > ticket_list[j][3] or (ticket_list[i][3] == ticket_list[j][3] and ticket_list[i][1] > ticket_list[j][1]):
-                ticket_list[i], ticket_list[j] = ticket_list[j], ticket_list[i]
-    return ticket_list
+            if len(tickets_list[i]) >= 4 and len(tickets_list[j]) >=4:
+                if int(tickets_list[i][3]) > int(tickets_list[j][3]) or (int(tickets_list[i][3]) == int(tickets_list[j][3]) and tickets_list[i][1] > tickets_list[j][1]):
+                    tickets_list[i], tickets_list[j] = tickets_list[j], tickets_list[i]
+            else:
+                print('error')
+    return tickets_list
 
 #sorted_tickets = sort_tickets(ticket_list)
 
@@ -129,7 +135,7 @@ def change_priority(tickets_list, ticket_to_change, new_priority):
 
 
 
-### Remove tickets:
+### Remove tickets: once a ticket is removed, from anywhere in the list but not from the end, i dindt auto-decreced the ticket ID because each ticket ID is UNIQUE 
 
 def remove_tickets(tickets_list, tick_to_remove):
     for ticket in tickets_list:
@@ -145,8 +151,9 @@ def remove_tickets(tickets_list, tick_to_remove):
 
 
 def todayEvents(tickets_list):
-    global special_queue
-    current_date = datetime.datetime.now().strftime('%Y%m%d')
+    # https://www.simplilearn.com/tutorials/python-tutorial/global-variable-in-python
+    global special_queue, current_date
+    #current_date = datetime.datetime.now().strftime('%Y%m%d')
     
     # checking if the current date with any dates in the special queue:
     matching_dates = []
@@ -224,6 +231,7 @@ def display_admin_menu():
     print("7. Exist")
 
 def adminMenu():
+    global current_date
     display_admin_menu()
     choice = int(input('please enter your choice here: '))
 
@@ -250,7 +258,7 @@ def adminMenu():
             print('ticket list updated')
         
         elif choice == 3:
-            sorted_tickets = sort_tickets(ticket_list)
+            sorted_tickets = sort_tickets(tickets_list)
             print("today s tickets:")
             for ticket in sorted_tickets:
                 if ticket[3] == current_date:
@@ -290,11 +298,7 @@ def adminMenu():
 
         display_admin_menu()
         choice = int(input('please enter your choice here: '))
-
-
-
-
-
+    return special_queue
 ##########
 ###user###
 ##########
@@ -312,7 +316,7 @@ def user_add_ticket():
     priority = '0'
 
     new_tickets_id = new_ticket()
-    new_ticket_list = f"{new_tickets_id},{event_id}, {username2}, {current_date}, {priority}"
+    new_ticket_list = f"{new_tickets_id}, {event_id}, {username2}, {current_date}, {priority}"
 
     with open('ticket_list.txt', 'a') as file:
         file.write(new_ticket_list)
@@ -342,10 +346,10 @@ def userMenu():
                 for ticket in tickets_list:
                     file.write(", ".join(ticket) + '\n')
             print('changes saved')
-        break
+            break
         
-    else:
-        print('wrong choise, plz repeat')
+        else:
+            print('wrong choise, plz repeat')
 
 #############
 #log-in menu#

@@ -18,7 +18,6 @@ tick017, ev002, alice, 20230630, 0
 tick018, ev002, bob, 20230729, 2
 tick019, ev001, eve, 20230613, 0
 tick020, ev003, dave, 20230709, 0
-tick021, ev003, dave, 20230603, 3
 tick022, ev001, dave, 20230717, 1
 tick023, ev001, charlie, 20230627, 3
 tick024, ev001, dave, 20230717, 1
@@ -28,4 +27,10 @@ tick027, ev002, bob, 20230622, 1
 tick028, ev003, alice, 20230701, 3
 tick029, ev001, alice, 20230624, 0
 tick030, ev003, alice, 20230708, 2
-tick31,ev002, youssef, 20230730, 0
+tick031, ev002, jean, 20230730, 3
+tick032, ev003, joe, 20230731, 1
+tick033, ev001, youss, 20230731, 3
+tick034, ev001, youss, 20230731, 1
+tick035, ev001, elie, 20230801, 3
+tick036, ev003, jj, 20230801, 0
+tick037, ev003, kyle, 20230801, 2
