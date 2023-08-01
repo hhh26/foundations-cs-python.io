@@ -258,10 +258,11 @@ def adminMenu():
             print('ticket list updated')
         
         elif choice == 3:
+            today_ticket = get_date()
             sorted_tickets = sort_tickets(tickets_list)
             print("today s tickets:")
             for ticket in sorted_tickets:
-                if ticket[3] == current_date:
+                if ticket[3] == today_ticket:
                     print(", ".join(ticket))
 
         elif choice == 4:
