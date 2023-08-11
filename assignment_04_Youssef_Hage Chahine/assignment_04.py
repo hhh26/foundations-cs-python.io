@@ -19,7 +19,12 @@ class Graph:
         else:
             print('user not found')
 
-
+    def send_friend_request(self, user1, user2):
+        if user1 in self.vertices and user2 in self.vertices:
+            self.add_edge(user1, user2)
+            print(f"friend request sent from {user1} to {user2}")
+        else:
+            print('users not found')
 
 class User:
     def __init__(self, username):
