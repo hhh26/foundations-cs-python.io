@@ -279,7 +279,7 @@ def adminMenu():
             remove_tickets(tickets_list, tick_to_remove)
         
         elif choice == 6:
-            todayEvents(tickets_list)  
+            special_queue = todayEvents(tickets_list, special_queue)  
         
         elif choice == 7: # ask the admin if he wants to save the changes 
             save_changes = input('save changes? (y/n): ')
