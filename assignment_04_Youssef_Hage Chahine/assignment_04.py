@@ -38,8 +38,15 @@ class Graph:
             print("users are not found")
     
 
-    
-
+    def view_friend(self, user):
+        if user in self.vertices:
+            friend = self.vertices[user]
+            if friend:
+                print(f"friends of {user}: {','.join(friend)}")
+            else:
+                print(f"{user} forever alone")
+        else:
+            print("user not found")
 
 
 
@@ -65,7 +72,7 @@ def Menu():
     displayMenu()
     choice = int(input('enter your choice: '))
     
-    while True:
+    while choice != 7:
 
         if choice == 1:
             username = input("enter a username: ")
@@ -90,4 +97,21 @@ def Menu():
             user2 = input('enter the username to remove: ')
             social_media.remove_friend(user1, user2)
         
+        elif choice == 5:
+            user = input("enter username")
+            social_media.view_friend(user)
+        
+        elif choice == 6:
+            
+        else:
+            print("invalid choice")
+        
+        print("----------")
+
+        displayMenu()
+        choice = int(input('enter your choice: '))
+
+    print("bye!")    
+
+Menu()
 
