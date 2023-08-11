@@ -42,13 +42,16 @@ class Graph:
         if user in self.vertices:
             friend = self.vertices[user]
             if friend:
-                print(f"friends of {user}: {','.join(friend)}")
+                print(f"friends of {user}: {', '.join(friend)}")
             else:
                 print(f"{user} forever alone")
         else:
             print("user not found")
 
-
+    def view_all_users(self):
+        print("list of all users:")
+        for user in self.vertices:
+            print(user)
 
 class User:
     def __init__(self, username):
@@ -98,11 +101,12 @@ def Menu():
             social_media.remove_friend(user1, user2)
         
         elif choice == 5:
-            user = input("enter username")
+            user = input("enter username: ")
             social_media.view_friend(user)
         
         elif choice == 6:
-            
+            social_media.view_all_users()
+        
         else:
             print("invalid choice")
         
@@ -111,7 +115,7 @@ def Menu():
         displayMenu()
         choice = int(input('enter your choice: '))
 
+        print("-----------")
     print("bye!")    
 
 Menu()
-
